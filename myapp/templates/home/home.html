@@ -1,10 +1,17 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>Blog</title>
   </head>
-  <body></body>
+  <body>
+    <h1>Witaj, {{ user.username }}!</h1>
+    <p>To Twoja strona domowa.</p>
+    <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Wyloguj się</button>
+    </form>
+  </body>
 </html>
