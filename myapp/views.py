@@ -23,9 +23,9 @@ def register_view(request):
             )
             login(request, user)
             return redirect("home")
-        else:
-            form = RegisterForm()
-        return render(request, "accounts/register.html", {"form": form})
+    else:
+        form = RegisterForm()
+    return render(request, "accounts/register.html", {"form": form})
 
 
 def login_view(request):
