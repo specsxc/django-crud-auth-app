@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect
+from django.http import HttpResponseForbidden
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import View
 from django.contrib.auth.models import User
 from .forms import PostForm, RegisterForm
 from .models import Post
@@ -58,21 +57,6 @@ def logout_view(request):
     if request.method == "POST":
         logout(request)
         return redirect("index")
-    else:
-        return redirect("index")
-
-
-@login_required
-def home_view(request):
-    return render(request, "home/index.html")
-
-
-class HomeView(LoginRequiredMixin, View):
-    login_url = "/login/"
-    redirect_field_name = "redirect_to"
-
-    def get(self, request):
-        return render(request, "home/index.html")
 
 
 @login_required
@@ -88,3 +72,25 @@ def add_post_view(request):
         form = PostForm()
 
     return render(request, "home/add_post.html", {"form": form})
+
+
+@login_required
+def edit_post_view(request, post_id):
+    post = get_object_or_404(Post, pk=post_id, author=request.user)
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect("index")
+    else:
+        form = PostForm(instance=post)
+    return render(request, "home/edit_post.html", {"form": form, "post": post})
+
+
+@login_required
+def delete_post_view(request, post_id):
+    post = get_object_or_404(Post, pk=post_id, author=request.user)
+    if request.method == "POST":
+        post.delete()
+        return redirect("index")
+    return HttpResponseForbidden("Nie można usunąć posta metodą GET")

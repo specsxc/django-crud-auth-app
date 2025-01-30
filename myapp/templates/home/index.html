@@ -16,7 +16,7 @@
     </form>
     {% endif %}
     <p>
-      <p>Jesteś zalogowany : {{ user.is_authenticated }}</p>
+      <p>Jesteś zalogowany: {{ user.is_authenticated }}</p>
       {% if not user.is_authenticated %}
       <a href="{% url 'login' %}">Zaloguj się</a> lub
       <a href="{% url 'register' %}">Zarejestruj się</a>
@@ -35,6 +35,10 @@
           <strong>Data utworzenia:</strong>
           {{ post.created_at|date:"d-m-Y H:i" }}
         </p>
+        {% if request.user == post.author %}  <a href="{% url 'edit_post' post.id %}">Edytuj</a>
+        <a href="{% url 'delete_post' post.id %}" onclick="return confirm('Czy na pewno chcesz usunąć ten post?')">Usuń</a>
+        {% endif %}
+        <hr>
         {% if post.comments.all %}
         <h3>Komentarze:</h3>
         <ul>
