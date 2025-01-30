@@ -67,13 +67,13 @@ class CommentForm(forms.ModelForm):
 class RateForm(forms.ModelForm):
     score = forms.ChoiceField(
         choices=[(i, i) for i in range(1, 6)],
-        label="Ocena",
+        label="",
     )
 
     class Meta:
         model = Rate
         fields = ["score"]
-        labels = {"text": "Ocena"}
+        labels = {"text": ""}
 
 
 class CustomPasswordChangeForm(PasswordChangeForm):
