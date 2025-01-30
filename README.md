@@ -8,8 +8,16 @@ Zainstaluj wymagane zależności:
 ## Użycie
 
 Aby uruchomić projekt, wykonaj następujące polecenie:
+
     ```
     pipenv shell
+    ```
+    
+    ```
     pipenv install django
+    ```
+
+    ```
     python manage.py runserver
+    
     ```
