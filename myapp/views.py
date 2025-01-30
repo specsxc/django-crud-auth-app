@@ -1,10 +1,19 @@
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import PostForm, RegisterForm, CommentForm, RateForm
-from .models import Post, Rate
+from django.urls import reverse_lazy
+from .forms import (
+    PostForm,
+    RegisterForm,
+    CommentForm,
+    RateForm,
+    CustomPasswordChangeForm,
+    CustomUserChangeForm,
+)
+from .models import Post, Rate, Comment
 
 
 def index_view(request):
@@ -144,3 +153,27 @@ def add_rate(request, post_id):
         form = RateForm()
 
     return render(request, "home/add_rate.html", {"form": form, "post": post})
+
+
+class CustomPasswordChangeView(PasswordChangeView):
+    form_class = CustomPasswordChangeForm
+    success_url = reverse_lazy("profile")
+    template_name = "home/change_password.html"
+
+
+def edit_profile(request):
+    if request.method == "POST":
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("profile")
+    else:
+        form = CustomUserChangeForm(instance=request.user)
+    return render(request, "home/edit_profile.html", {"form": form})
+
+
+def profile(request):
+    posts = Post.objects.filter(author=request.user)
+    comments = Comment.objects.filter(author=request.user)
+    context = {"posts": posts, "comments": comments}
+    return render(request, "home/profile.html", context)

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profil użytkownika</title>
+  </head>
+  <body>
+    <h1>Profil użytkownika</h1>
+
+    <div class="user-details">
+      <p><strong>Nazwa użytkownika:</strong> {{ user.username }}</p>
+      <p><strong>Imię:</strong> {{ user.first_name }}</p>
+      <p><strong>Nazwisko:</strong> {{ user.last_name }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+    </div>
+
+    <div class="profile-actions">
+      <a href="{% url 'edit_profile' %}">Edytuj profil</a>
+      <a href="{% url 'password_change' %}">Zmień hasło</a>
+      <a href="{% url 'logout' %}">Wyloguj</a>
+    </div>
+
+    <h2>Moje posty</h2>
+    <ul>
+      {% for post in posts %}
+      <li>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content }}</p>
+        <p>Data utworzenia: {{ post.created_at }}</p>
+        <p>
+          <a href="{% url 'edit_post' post.id %}">Edytuj</a>
+          <a
+            href="{% url 'delete_post' post.id %}"
+            onclick="return confirm('Czy na pewno chcesz usunąć ten post?')"
+            >Usuń</a
+          >
+        </p>
+      </li>
+      {% endfor %} {% if not posts %}
+      <p>Nie masz jeszcze żadnych postów.</p>
+      {% endif %}
+    </ul>
+
+    <h2>Moje komentarze</h2>
+    <ul>
+      {% for comment in comments %}
+      <li>{{ comment.text }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

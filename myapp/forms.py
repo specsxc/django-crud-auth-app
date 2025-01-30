@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
+from django.utils.translation import gettext_lazy as _
 from .models import Post, Comment, Rate
 
 
@@ -72,3 +74,32 @@ class RateForm(forms.ModelForm):
         model = Rate
         fields = ["score"]
         labels = {"text": "Ocena"}
+
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        label=_("Stare hasło"),
+        widget=forms.PasswordInput,
+    )
+    new_password1 = forms.CharField(
+        label=_("Nowe hasło"),
+        widget=forms.PasswordInput,
+    )
+    new_password2 = forms.CharField(
+        label=_("Potwierdzenie nowego hasła"), widget=forms.PasswordInput
+    )
+
+    class Meta:
+        fields = ("old_password", "new_password1", "new_password2")
+
+
+class CustomUserChangeForm(UserChangeForm):
+    password = None
+    username = forms.CharField(label=_("Nazwa użytkownika"))
+    first_name = forms.CharField(label=_("Imię"))
+    last_name = forms.CharField(label=_("Nazwisko"))
+    email = forms.CharField(label=_("Email"))
+
+    class Meta:
+        model = User
+        fields = ("username", "email", "first_name", "last_name")

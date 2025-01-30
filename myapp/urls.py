@@ -9,6 +9,9 @@ from .views import (
     add_post_view,
     add_comment,
     add_rate,
+    edit_profile,
+    CustomPasswordChangeView,
+    profile,
 )
 
 urlpatterns = [
@@ -21,4 +24,11 @@ urlpatterns = [
     path("delete_post/<int:post_id>/", delete_post_view, name="delete_post"),
     path("add_comment/<int:post_id>/", add_comment, name="add_comment"),
     path("add_rate/<int:post_id>/", add_rate, name="add_rate"),
+    path(
+        "password_change/",
+        CustomPasswordChangeView.as_view(),
+        name="password_change",
+    ),
+    path("edit_profile/", edit_profile, name="edit_profile"),
+    path("profile/", profile, name="profile"),
 ]
