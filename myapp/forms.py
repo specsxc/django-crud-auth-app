@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Post
+from .models import Post, Comment, Rate
 
 
 class RegisterForm(forms.ModelForm):
@@ -49,3 +49,26 @@ class PostForm(forms.ModelForm):
                 }
             ),
         }
+
+
+class CommentForm(forms.ModelForm):
+    author_name = forms.CharField(
+        max_length=100, required=False, label="Imię (opcjonalnie)"
+    )
+
+    class Meta:
+        model = Comment
+        fields = ["text", "author_name"]
+        labels = {"text": "Treść komentarza"}
+
+
+class RateForm(forms.ModelForm):
+    score = forms.ChoiceField(
+        choices=[(i, i) for i in range(1, 6)],
+        label="Ocena",
+    )
+
+    class Meta:
+        model = Rate
+        fields = ["score"]
+        labels = {"text": "Ocena"}

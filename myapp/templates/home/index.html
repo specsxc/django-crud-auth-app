@@ -41,6 +41,16 @@
           onclick="return confirm('Czy na pewno chcesz usunąć ten post?')"
           >Usuń</a
         >
+        {% endif %}
+        <form method="post" action="{% url 'add_comment' post.id %}">
+          {% csrf_token %} {{ form.as_p }}
+          <button type="submit">Dodaj komentarz</button>
+        </form>
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'add_rate' post.id %}">
+          {% csrf_token %} {{ rate_form.as_p }}
+          <button type="submit">Oceń</button>
+        </form>
         {% endif %} {% if post.comments.all %}
         <h3>Komentarze:</h3>
         <ul>
