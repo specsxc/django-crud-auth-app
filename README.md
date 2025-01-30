@@ -2,7 +2,7 @@
 
 Projekt wymaga:
 Python 3.x,
-Django
+Django, pip, pipenv
 
 
 ## Instalacja
