@@ -7,7 +7,7 @@ Zainstaluj wymagane zależności:
 
 ## Użycie
 
-Aby uruchomić projekt, wykonaj następujące polecenie:
+Aby uruchomić projekt, wykonaj następujące polecenia:
     ```
     pipenv shell
     ```
