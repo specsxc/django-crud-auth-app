@@ -3,7 +3,7 @@
 Zainstaluj wymagane zależności:
     ```bash
     pip install pipenv
-    ```
+```bash
 
 ## Użycie
 
