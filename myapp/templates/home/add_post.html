@@ -4,14 +4,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rejestracja</title>
+    <title>Dodaj post</title>
   </head>
   <body>
-    <h1>Rejestracja</h1>
+    {% if user.is_authenticated %}
+    <h2>Dodaj nowy post</h2>
     <form method="post">
       {% csrf_token %} {{ form.as_p }}
-      <button type="submit">Zarejestruj się</button>
+      <button type="submit">Dodaj post</button>
     </form>
+    {% else %}
+    <p>Musisz być zalogowany, aby dodać post.</p>
+    <a href="{% url 'login' %}">Zaloguj się</a>
+    {% endif %}
     <a href="{% url 'index' %}">Powrót na stronę główną</a>
   </body>
 </html>

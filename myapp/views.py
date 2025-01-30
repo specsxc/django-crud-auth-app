@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.contrib.auth.models import User
-from .forms import RegisterForm
+from .forms import PostForm, RegisterForm
 from .models import Post
 
 
@@ -25,7 +25,7 @@ def register_view(request):
                 username=username, email=email, password=password
             )
             login(request, user)
-            return redirect("home")
+            return redirect("index")
     else:
         form = RegisterForm()
     return render(request, "accounts/register.html", {"form": form})
@@ -47,7 +47,7 @@ def login_view(request):
             if not next_url:
                 next_url = request.GET.get("next")
             if not next_url:
-                next_url = "home"
+                next_url = "index"
             return redirect(next_url)
         else:
             error_message = "Nieprawidłowe dane!"
@@ -59,12 +59,12 @@ def logout_view(request):
         logout(request)
         return redirect("index")
     else:
-        return redirect("home")
+        return redirect("index")
 
 
 @login_required
 def home_view(request):
-    return render(request, "home/home.html")
+    return render(request, "home/index.html")
 
 
 class HomeView(LoginRequiredMixin, View):
@@ -72,4 +72,19 @@ class HomeView(LoginRequiredMixin, View):
     redirect_field_name = "redirect_to"
 
     def get(self, request):
-        return render(request, "home/home.html")
+        return render(request, "home/index.html")
+
+
+@login_required
+def add_post_view(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect("index")
+    else:
+        form = PostForm()
+
+    return render(request, "home/add_post.html", {"form": form})
