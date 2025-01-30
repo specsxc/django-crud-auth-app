@@ -1,7 +1,7 @@
 ## Wymagania
 
 Projekt wymaga:
-Python 3.x
+Python 3.x,
 Django
 
 
