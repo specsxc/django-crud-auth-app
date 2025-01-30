@@ -1,3 +1,10 @@
+## Wymagania
+
+Projekt wymaga:
+Python 3.x
+Django
+
+
 ## Instalacja
 
 Zainstaluj wymagane zależności:
