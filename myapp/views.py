@@ -5,10 +5,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.contrib.auth.models import User
 from .forms import RegisterForm
+from .models import Post
 
 
 def index_view(request):
-    return render(request, "home/index.html")
+    posts = Post.objects.prefetch_related("comments", "rates").all()
+    context = {"posts": posts}
+    return render(request, "home/index.html", context)
 
 
 def register_view(request):
@@ -47,7 +50,7 @@ def login_view(request):
                 next_url = "home"
             return redirect(next_url)
         else:
-            error_message = "Invalid credentials"
+            error_message = "Nieprawidłowe dane!"
     return render(request, "accounts/login.html", {"error": error_message})
 
 

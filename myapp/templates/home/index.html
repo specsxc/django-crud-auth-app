@@ -13,5 +13,41 @@
       <a href="{% url 'login' %}">Zaloguj się</a> lub
       <a href="{% url 'register' %}">Zarejestruj się</a>
     </p>
+    <ul>
+      {% for post in posts %}
+      <li>
+        <h2>{{post.title}}</h2>
+        <p>{{ post.content }}</p>
+        <p><strong>Autor:</strong> {{ post.author.username }}</p>
+        <p>
+          <strong>Data utworzenia:</strong>
+          {{ post.created_at|date:"d-m-Y H:i" }}
+        </p>
+        {% if post.comments.all %}
+        <h3>Komentarze:</h3>
+        <ul>
+          {% for comment in post.comments.all %}
+          <li>
+            <strong>{{ comment.author.username }}:</strong> {{ comment.text }}
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p>Brak komentarzy.</p>
+        {% endif %} {% if post.rates.all %}
+        <h3>Oceny:</h3>
+        <ul>
+          {% for rate in post.rates.all %}
+          <li>
+            <strong>{{ rate.author.username }}</strong> Ocena: {{ rate.score }}
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p>Brak ocen.</p>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
   </body>
 </html>
