@@ -8,11 +8,13 @@
     <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
   </head>
   <body>
-    <h1>Dodaj komentarz do posta: {{ post.title }}</h1>
-    <form method="post">
-      {% csrf_token %} {{ form.as_p }}
-      <button type="submit">Dodaj</button>
-    </form>
-    <a href="{% url 'index' %}">Powrót do listy postów</a>
+    <div class="container">
+      <h2>Dodaj komentarz do posta: {{ post.title }}</h2>
+      <form method="post" class="form">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit">Dodaj</button>
+        <a href="{% url 'index' %}">Powrót do listy postów</a>
+      </form>
+    </div>
   </body>
 </html>

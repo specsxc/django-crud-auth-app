@@ -5,7 +5,6 @@
     box-sizing: border-box;
 }
 
-
 body{
     background-color: #f4f4f4;
     color: #333;
@@ -27,7 +26,6 @@ h3 {
     margin-top: 20px;
 }
 
-
 p {
     margin: 5px 0;
 }
@@ -41,13 +39,13 @@ a {
     text-align: center;
     font-size: 16px;
     border-radius: 5px;
+    line-height: 1;
+    margin-top: 10px;
 }
-
 
 a:hover {
     background: #006115;
 }
-
 
 ul {
     list-style: none;
@@ -75,10 +73,40 @@ button {
     border-radius: 5px;
     border: none;
     cursor: pointer;
+    line-height: 1;
 }
 
 button:hover {
     background: #006115;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+.center-this{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.center-this button, .center-this a {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    margin-top: 0px;
 }
 
 .forms-container {
@@ -88,13 +116,11 @@ button:hover {
     gap: 20px; 
 }
 
-
 .forms-container .rate-form {
     display: flex;
     align-items: center; 
     gap: 10px; 
 }
-
 
 .forms-container .rate-form > * {
     margin: 0;
@@ -129,12 +155,10 @@ input, textarea {
     border-radius: 5px;
 }
 
-
 label {
     display: block;
     margin-bottom: 5px;
 }
-
 
 .user-actions a, .user-actions button {
     display: inline-block; 
@@ -155,6 +179,13 @@ label {
     background: #006115;
 }
 
+.errorlist {
+    display: none; 
+}
+
+.helptext {
+    display: none;
+}
 
 .user-actions {
     display: flex;
@@ -166,22 +197,19 @@ label {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     max-width: 800px;
     margin: 0 auto 20px;
+    justify-content: space-evenly;
 }
 
-.button-main {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
+.container-actions{
+    display: flex;
+    flex-direction: column;
 }
 
-
+.container-actions ul {
+    list-style: none;
+    padding: 0; 
+    margin: 0; 
+  }
 
 @media (max-width: 600px) {
     body {

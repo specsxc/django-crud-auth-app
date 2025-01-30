@@ -8,11 +8,15 @@
     <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
   </head>
   <body>
-    <h1>Rejestracja</h1>
-    <form method="post">
-      {% csrf_token %} {{ form.as_p }}
-      <button type="submit">Zarejestruj się</button>
-    </form>
-    <a href="{% url 'index' %}">Powrót na stronę główną</a>
+    <div class="container">
+      <h1>Rejestracja</h1>
+      <form method="post" class="form">
+        {% csrf_token %} {{ form.as_p }}
+        <div class="center-this">
+          <button type="submit">Zarejestruj się</button>
+          <a href="{% url 'index' %}">Powrót na stronę główną</a>
+        </div>
+      </form>
+    </div>
   </body>
 </html>

@@ -8,11 +8,13 @@
     <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
   </head>
   <body>
-    <h1>Edytuj profil</h1>
-    <form method="post">
-      {% csrf_token %} {{ form.as_p }}
-      <button type="submit">Zapisz</button>
-    </form>
-    <a href="{% url 'profile' %}">Powrót do profilu</a>
+    <div class="container">
+      <h1>Edytuj profil</h1>
+      <form method="post" class="form">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit">Zapisz</button>
+        <a href="{% url 'profile' %}">Powrót do profilu</a>
+      </form>
+    </div>
   </body>
 </html>

@@ -10,18 +10,22 @@
   <body>
     <h1>Profil użytkownika</h1>
 
+    <div class="user-actions">
+      <a href="{% url 'index' %}">Strona główna</a>
+      <a href="{% url 'add_post' %}">Dodaj post</a>
+      <a href="{% url 'edit_profile' %}">Edytuj profil</a>
+      <a href="{% url 'password_change' %}">Zmień hasło</a>
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Wyloguj się</button>
+      </form>
+    </div>
+
     <div class="user-details">
       <p><strong>Nazwa użytkownika:</strong> {{ user.username }}</p>
       <p><strong>Imię:</strong> {{ user.first_name }}</p>
       <p><strong>Nazwisko:</strong> {{ user.last_name }}</p>
       <p><strong>Email:</strong> {{ user.email }}</p>
-    </div>
-
-    <div class="profile-actions">
-      <a href="{% url 'index' %}">Strona główna</a>
-      <a href="{% url 'edit_profile' %}">Edytuj profil</a>
-      <a href="{% url 'password_change' %}">Zmień hasło</a>
-      <a href="{% url 'logout' %}">Wyloguj</a>
     </div>
 
     <h2>Moje posty</h2>
@@ -30,7 +34,7 @@
       <li>
         <h3>{{ post.title }}</h3>
         <p>{{ post.content }}</p>
-        <p>Data utworzenia: {{ post.created_at }}</p>
+        <p>Data utworzenia: {{ post.created_at|date:"d-m-Y H:i" }}</p>
         <p>
           <a href="{% url 'edit_post' post.id %}">Edytuj</a>
           <a

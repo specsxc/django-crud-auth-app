@@ -44,7 +44,7 @@ class PostForm(forms.ModelForm):
                     "class": "form-control",
                 }
             ),
-            "content": forms.TextInput(
+            "content": forms.Textarea(
                 attrs={
                     "placeholder": "n.p. Co robiłeś na wycieczce?",
                     "class": "form-control",
@@ -62,6 +62,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ["text", "author_name"]
         labels = {"text": "Treść komentarza"}
+        widgets = {"text": forms.Textarea(attrs={"rows": 4, "value": ""})}
 
 
 class RateForm(forms.ModelForm):
