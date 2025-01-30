@@ -8,11 +8,19 @@
     <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
   </head>
   <body>
-    <h1>Witaj na stronie głównej</h1>
+    <h1>Witaj na stronie głównej {{ user.username }}</h1>
+    {% if user.is_authenticated %}
+    <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Wyloguj się</button>
+    </form>
+    {% endif %}
     <p>
       <p>Jesteś zalogowany : {{ user.is_authenticated }}</p>
+      {% if not user.is_authenticated %}
       <a href="{% url 'login' %}">Zaloguj się</a> lub
       <a href="{% url 'register' %}">Zarejestruj się</a>
+      {% endif %}
       {% if user.is_authenticated %}
       <a href="{% url 'add_post' %}">Dodaj post</a>
       {% endif %}
